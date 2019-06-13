@@ -26,7 +26,7 @@ class Problem():
         ]
         self.limit = 170 # kg (ton^-3)
 
-    def problemDefiner(self, isRobust=False):
+    def problemDefiner(self, isRobust=False, deviationToIgnore = 0):
         # Problem definition
         self.wasteManagement = LpProblem('Waste management', LpMinimize)
 
@@ -45,7 +45,7 @@ class Problem():
         
         # Allow the model to manage cases where there is deviation
         if isRobust: 
-            self.wasteManagement += sum((1/1000000) * factory["B"] * (1-factory["E"]*(1-factory["Ed"])) * factory["x"] for factory in self.factoriesData) <= self.limit/1000           
+            self.wasteManagement += sum((1/1000000) * factory["B"] * (1-factory["E"]*(1-(factory["Ed"]*(1-deviationToIgnore/100)))) * factory["x"] for factory in self.factoriesData) <= self.limit/1000           
         else:
             self.wasteManagement += sum((1/1000000) * factory["B"] * (1-factory["E"]) * factory["x"] for factory in self.factoriesData) <= self.limit/1000
         

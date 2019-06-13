@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import ttk
 from SolverInterface import *
 from AmortizerInterface import *
+from HybridModelInterface import * 
 
 class NotebookFrame(Frame):
 
@@ -22,3 +23,9 @@ class NotebookFrame(Frame):
         self.mainView.add(amortizerTab, text="Amortizer")
         self.mainView.pack(fill='both', expand=Y, side='top')
         AmortizerInterface(amortizerTab)
+
+        #Hybrid
+        hybridTab = ttk.Frame(self.mainView)
+        self.mainView.add(hybridTab, text="Hybrid Model")
+        self.mainView.pack(fill='both', expand=Y, side='top')
+        HybridInterface(hybridTab)
